@@ -22,7 +22,7 @@ class MouseInpainting:
         cv2.namedWindow(self.name)
         cv2.setMouseCallback(self.name, self.drawCallback)
         cv2.createTrackbar('inpaint_radius', self.name,
-                           1, 9, lambda *args: None)
+                           1, 30, lambda *args: None)
         switch = '0: NS 1: TELEA'
         cv2.createTrackbar(switch, self.name, 0, 1, lambda *args: None)
         while True:
