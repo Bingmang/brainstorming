@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets('datasets/MNIST_data/', one_hot=True)
 
@@ -58,12 +59,12 @@ with tf.Session() as sess:
     sess.run(init)
     total_batch = int(mnist.train.num_examples / batch_size)
     # 开始训练
-    for epoch in range(training_epochs):
+    for epoch in tqdm(range(training_epochs)):
         for i in range(total_batch):
             batch_xs, batch_ys = mnist.train.next_batch(batch_size)
             _, c = sess.run([optimizer, loss], feed_dict={X: batch_xs})
         if epoch % display_step == 0:
-            print('Epoch:', '%04d' % (epoch + 1), 'cost=', '{:.9f}'.format(c))
+            print('\nEpoch:', '%04d' % (epoch + 1), 'cost=', '{:.9f}'.format(c))
     print('Optimization Finished!')
     # 应用自编码网络
     encode_decode = sess.run(y_pred, feed_dict={X: mnist.test.images[:examples_to_show]})
